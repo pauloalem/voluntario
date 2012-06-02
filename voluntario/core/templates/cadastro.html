@@ -1,0 +1,27 @@
+{% extends "base_site.html" %}
+
+{% block js %}
+{{ block.super }}
+<script defer="defer" type="text/javascript" src="/static/js/cadastro.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div class="container cadastro">
+		<div class="twelve columns">
+			<div class="five columns alpha">
+				<h4>Cadastro</h4>
+				<form action="/user/register/{{ type }}/" method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<p>
+						<input type="submit" class="green-button" value="Cadastrar" />
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

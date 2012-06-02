@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Pais(models.Model):
     nome = models.CharField(max_length=255)
@@ -46,8 +47,8 @@ class Banco(models.Model):
 
 
 class Usuario(EnderecoMixin):
+    areas = models.ManyToManyField(Area)
     nome = models.CharField(max_length=255)
-    nascimento = models.DateField(null=True, blank=True, default=None)
     identificador = models.CharField(max_length=255, unique=True, null=True, blank=True, default=None)
     email = models.EmailField()
     telefone = models.CharField(max_length=255)
@@ -62,7 +63,7 @@ class Campanha(EnderecoMixin):
     descricao = models.TextField()
     criador = models.ForeignKey(Usuario, related_name="campanhas")
     data_inicio = models.DateTimeField()
-    data_fim = models.DateTimeField(null=True, blank=True)
+    data_fim = models.DateTimeField(blank=True)
     foto = models.ImageField(upload_to='campanha/', blank=True, null=True)
 
 
@@ -70,9 +71,14 @@ class Voluntario(Usuario):
     participacoes = models.ManyToManyField(Campanha,
         help_text="Campanhas que o usuario participou", null=True, blank=True)
 
-
 class Beneficiario(Usuario):
     banco = models.ForeignKey(Banco)
     conta = models.CharField(max_length=255, null=True, blank=True, default=None)
     agencia = models.CharField(max_length=255, null=True, blank=True, default=None)
     site = models.URLField(null=True, blank=True, default=None)
+
+class UsuarioPerfil(models.Model):
+    usuario = models.ForeignKey(User, related_name="usuario_perfil")
+    
+    aceita_email = models.IntegerField(default=1)
+    areas = models.ManyToManyField(Area)
