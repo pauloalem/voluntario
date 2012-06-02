@@ -140,7 +140,9 @@ class BancoForm(forms.Form):
 
 
 class BeneficiarioForm(EnderecoForm, BancoForm):
-    pass
+    conta = forms.CharField(max_length=255)
+    agencia = forms.CharField(max_length=255)
+    site = forms.URLField()
 
 
 class CampanhaForm(forms.ModelForm):

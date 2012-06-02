@@ -4,7 +4,7 @@ import md5
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, redirect, get_object_or_404
-from voluntario.core.forms import CampanhaForm
+from voluntario.core.forms import CampanhaForm, BeneficiarioForm
 from voluntario.core.models import Campanha, Voluntario
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
@@ -210,8 +210,14 @@ def beneficiario_show(request):
     pass
 
 def beneficiario(request):
-    return render(request, "beneficiario.html", {})
-
+    if request.method == "POST":
+        form = BeneficiarioForm(request)
+        if form.is_valid():
+            return redirect('beneficiario-show', id_beneficiario=form.id)
+    else:
+        form = BeneficiarioForm()
+    return render(request, "beneficiario.html", {"form": form})
+    
 def campanha(request):
     if request.method == "POST":
         form = CampanhaForm(request.POST)
