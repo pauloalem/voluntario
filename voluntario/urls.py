@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
+from voluntario.core import views
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 admin.autodiscover()
@@ -24,4 +24,5 @@ urlpatterns = patterns('',
     url(r'^usuario/(?P<username>[a-zA-Z0-9\-\_\.]+)/?$', 'core.views.perfil', name="user_profile"),
     
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index),
 )

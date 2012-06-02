@@ -1,10 +1,14 @@
 # Django settings for voluntario project.
 from os.path import dirname, abspath, join
+import os
 
 def get_local_file(path):
     return (lambda *x: abspath(join(dirname(path), *x)))
 
+
 LOCAL_FILE = get_local_file(__file__)
+CUR_DIR = os.getcwd()
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -118,11 +122,15 @@ ROOT_URLCONF = 'voluntario.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'voluntario.wsgi.application'
 
+CORE_TEMPLATES = join(abspath(dirname(__file__)),"core", 'templates')
+
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    CORE_TEMPLATES,
 )
+print join(CUR_DIR, 'core', 'templates')
 
 INSTALLED_APPS = (
     'django.contrib.auth',
