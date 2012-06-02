@@ -1,0 +1,12 @@
+*.pyc
+.coverage
+.DS_Store
+*.swp
+*.swo
+.ropeproject
+.idea/
+solr/
+fhits/media/*
+fhits/cache/*
+.project
+.pydevproject
