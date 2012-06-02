@@ -1,23 +1,68 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        orm['core.Area'].objects.create(nome="Educação")
-        orm['core.Area'].objects.create(nome="Saúde")
-        orm['core.Area'].objects.create(nome="Meio Ambiente")
-        orm['core.Area'].objects.create(nome="Esporte/Artes")
-        orm['core.Area'].objects.create(nome="Animais")
-        orm['core.Area'].objects.create(nome="Serviço Social")
+        # Deleting model 'UsuarioPerfil'
+        db.delete_table('core_usuarioperfil')
+
+        # Removing M2M table for field areas on 'UsuarioPerfil'
+        db.delete_table('core_usuarioperfil_areas')
+
+        # Adding field 'Voluntario.sexo'
+        db.add_column('core_voluntario', 'sexo',
+                      self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Voluntario.nascimento'
+        db.add_column('core_voluntario', 'nascimento',
+                      self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Usuario.user'
+        db.add_column('core_usuario', 'user',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, related_name='usuario', unique=True, to=orm['auth.User']),
+                      keep_default=False)
+
+        # Adding field 'Usuario.aceita_email'
+        db.add_column('core_usuario', 'aceita_email',
+                      self.gf('django.db.models.fields.IntegerField')(default=1),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        orm['core.Area'].objects.all().delete()
-        "Write your backwards methods here."
+        # Adding model 'UsuarioPerfil'
+        db.create_table('core_usuarioperfil', (
+            ('usuario', self.gf('django.db.models.fields.related.ForeignKey')(related_name='usuario_perfil', to=orm['auth.User'])),
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('aceita_email', self.gf('django.db.models.fields.IntegerField')(default=1)),
+        ))
+        db.send_create_signal('core', ['UsuarioPerfil'])
+
+        # Adding M2M table for field areas on 'UsuarioPerfil'
+        db.create_table('core_usuarioperfil_areas', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('usuarioperfil', models.ForeignKey(orm['core.usuarioperfil'], null=False)),
+            ('area', models.ForeignKey(orm['core.area'], null=False))
+        ))
+        db.create_unique('core_usuarioperfil_areas', ['usuarioperfil_id', 'area_id'])
+
+        # Deleting field 'Voluntario.sexo'
+        db.delete_column('core_voluntario', 'sexo')
+
+        # Deleting field 'Voluntario.nascimento'
+        db.delete_column('core_voluntario', 'nascimento')
+
+        # Deleting field 'Usuario.user'
+        db.delete_column('core_usuario', 'user_id')
+
+        # Deleting field 'Usuario.aceita_email'
+        db.delete_column('core_usuario', 'aceita_email')
 
 
     models = {
@@ -111,6 +156,7 @@ class Migration(DataMigration):
         },
         'core.usuario': {
             'Meta': {'object_name': 'Usuario'},
+            'aceita_email': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
             'cidade': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Cidade']", 'null': 'True', 'blank': 'True'}),
             'complemento': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -123,14 +169,16 @@ class Migration(DataMigration):
             'nome': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'numero': ('django.db.models.fields.IntegerField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'pais': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Pais']", 'null': 'True', 'blank': 'True'}),
-            'telefone': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'telefone': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'related_name': "'usuario'", 'unique': 'True', 'to': "orm['auth.User']"})
         },
         'core.voluntario': {
             'Meta': {'object_name': 'Voluntario', '_ormbases': ['core.Usuario']},
+            'nascimento': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'participacoes': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['core.Campanha']", 'null': 'True', 'blank': 'True'}),
+            'sexo': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
             'usuario_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['core.Usuario']", 'unique': 'True', 'primary_key': 'True'})
         }
     }
 
     complete_apps = ['core']
-    symmetrical = True

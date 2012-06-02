@@ -1,0 +1,25 @@
+{% extends "base_site.html" %}
+{% block css %}
+<style type="text/css">
+#errorpagebg { background: url(/static/img/finger-reminder.png) right center no-repeat; width: 100%; }
+#errorpagebg p { font-size: 1.3em; line-height: 1.6em; padding-top: 20px; }
+h4.errorpage { color: #E3474D; font-family: 'Arvo',Arial !important; font-size: 1.65em; font-weight: bold; text-shadow: 1px 1px 1px #666666; }
+h4.errorpage span { color: #40a1b2; display: block; font-size: 3em; }
+</style>
+{% endblock %}
+
+{% block content %}
+	<div id="errorpagebg">
+		<div class="container pages">
+				<div class="twelve columns">
+							
+						<h4 class="errorpage"><span>Ooops… erro 404!</span>Parece que nossa memória anda falhando!</h4>
+						<p>
+						A página que você procurava não foi encontrada.<br />
+						Estamos trabalhando para isso não acontecer mais! <strong>É uma promessa!</strong>  ;)<br />
+						Enquanto isso, que tal voltar para a <a href="http://prometo.me" title="Prometo.me - Registre suas promessas para 2012!">home</a>?
+						</p>
+				</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base_site.html" %}
+
+{% block js %}
+{{ block.super }}
+<script defer="defer" type="text/javascript" src="/static/js/cadastro.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div class="container cadastro">
+		<div class="twelve columns">
+			<div class="five columns alpha">
+				<h4>Sua conta no Voluntar.io...</h4>
+				{% if feedback %}
+				<div class="feedback">{{feedback}}</div>
+				{% endif %}
+				<form action="{% url user_edit %}" method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<p>
+						<input type="submit" class="green-button" value="Salvar" />
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

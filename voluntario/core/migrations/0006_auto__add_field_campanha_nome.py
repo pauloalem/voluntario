@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import DataMigration
+from south.v2 import SchemaMigration
 from django.db import models
 
-class Migration(DataMigration):
+
+class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        "Write your forwards methods here."
-        orm['core.Area'].objects.create(nome="Educação")
-        orm['core.Area'].objects.create(nome="Saúde")
-        orm['core.Area'].objects.create(nome="Meio Ambiente")
-        orm['core.Area'].objects.create(nome="Esporte/Artes")
-        orm['core.Area'].objects.create(nome="Animais")
-        orm['core.Area'].objects.create(nome="Serviço Social")
+        # Adding field 'Campanha.nome'
+        db.add_column('core_campanha', 'nome',
+                      self.gf('django.db.models.fields.CharField')(default='Camapanha', max_length=30),
+                      keep_default=False)
+
 
     def backwards(self, orm):
-        orm['core.Area'].objects.all().delete()
-        "Write your backwards methods here."
+        # Deleting field 'Campanha.nome'
+        db.delete_column('core_campanha', 'nome')
 
 
     models = {
@@ -88,6 +87,7 @@ class Migration(DataMigration):
             'estado': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Estado']", 'null': 'True', 'blank': 'True'}),
             'foto': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'nome': ('django.db.models.fields.CharField', [], {'default': "'Camapanha'", 'max_length': '30'}),
             'numero': ('django.db.models.fields.IntegerField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'pais': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Pais']", 'null': 'True', 'blank': 'True'})
         },
@@ -111,6 +111,7 @@ class Migration(DataMigration):
         },
         'core.usuario': {
             'Meta': {'object_name': 'Usuario'},
+            'aceita_email': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
             'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
             'cidade': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Cidade']", 'null': 'True', 'blank': 'True'}),
             'complemento': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -123,14 +124,16 @@ class Migration(DataMigration):
             'nome': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'numero': ('django.db.models.fields.IntegerField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'pais': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Pais']", 'null': 'True', 'blank': 'True'}),
-            'telefone': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'telefone': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'related_name': "'usuario'", 'unique': 'True', 'to': "orm['auth.User']"})
         },
         'core.voluntario': {
             'Meta': {'object_name': 'Voluntario', '_ormbases': ['core.Usuario']},
+            'nascimento': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'participacoes': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': "orm['core.Campanha']", 'null': 'True', 'blank': 'True'}),
+            'sexo': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
             'usuario_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['core.Usuario']", 'unique': 'True', 'primary_key': 'True'})
         }
     }
 
     complete_apps = ['core']
-    symmetrical = True
