@@ -11,3 +11,4 @@ fhits/cache/*
 .project
 .pydevproject
 .settings
+.settings/*
