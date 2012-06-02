@@ -1,6 +1,7 @@
 body {
   padding: 0px;
   margin: 0px;
+  color: #CCC;
 }
 
 .container-fluid {
@@ -30,7 +31,6 @@ body {
 
 .big-menu h1 {
   text-align: center;
-  color:#CCC;
 }
 
 .big-menu button {
