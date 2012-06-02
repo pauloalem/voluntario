@@ -207,6 +207,9 @@ def dashboard(request, voluntario_id):
     voluntario = Voluntario.objects.get(id=voluntario_id)
     return render(request, "dashboard.html", {'voluntario':voluntario})
 
+def beneficiario(request):
+    return render(request, "beneficiario.html", {})
+
 def campanha(request):
     if request.method == "POST":
         form = CampanhaForm(request.POST)

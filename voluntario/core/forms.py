@@ -138,6 +138,10 @@ class VoluntarioEdicaoForm(EnderecoForm):
         except:
             return False
 
+class BeneficiarioForm(forms.ModelForm):
+    pass
+
+
 class CampanhaForm(forms.ModelForm):
 
     class Meta:

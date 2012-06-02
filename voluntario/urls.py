@@ -24,8 +24,13 @@ urlpatterns = patterns('',
     url(r'^usuario/(?P<username>[a-zA-Z0-9\-\_\.]+)/?$', 'voluntario.core.views.perfil', name="user_profile"),
     
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^voluntario/(?P<voluntario_id>\d+)/', 'voluntario.core.views.dashboard', name='dashboard'),
     url(r'^$', views.index, "index"),
+    
+    url(r'^voluntario/(?P<voluntario_id>\d+)/', 'voluntario.core.views.dashboard', name='dashboard'),
+    
+    url(r'^beneficiario/', views.beneficiario, name="beneficiario"),
+    url(r'^beneficiario/(?P<voluntario_id>\d+)/', views.beneficiario_show, name="beneficiario-show"),
+    
     url(r'^campanha/?$', views.campanha, name="campanha"),
     url(r'^campanha/(?P<id_campanha>\d+)/?^$', views.campanha_show, name="campanha-show"),
 )
