@@ -216,7 +216,8 @@ def campanha(request):
     if request.method == "POST":
         form = CampanhaForm(request.POST)
         if form.is_valid():
-            return redirect('campanha-show', id_campanha=form.id)
+            campanha = form.save(commit=True)
+            return redirect('campanha-show', id_campanha=campanha.id)
     else:
         form = CampanhaForm()
     return render(request, "campanha.html", {"form": form})
