@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from core.models import UsuarioPerfil, Area, Estado, Cidade, Pais
-from facebook.models import FacebookProfile
+from voluntario.core.models import UsuarioPerfil, Area, Estado, Cidade, Pais
+from voluntario.facebook.models import FacebookProfile
 
 from django.forms.fields import DateField, MultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
@@ -13,23 +13,23 @@ class EnderecoForm(forms.Form):
     numero = forms.IntegerField(required=True)
     complemento = forms.CharField(max_length=225, required=False)
     
-    estados = Estado.objects.all()
+    estados = [(e.nome, e.sigla) for e in Estado.objects.all()]
     estado = forms.ChoiceField(label=u'Estado', choices=estados)
     
-    cidades = Cidade.objects.all()
+    cidades = [(c.nome, c.nome) for c in Cidade.objects.all()]
     cidade = forms.ChoiceField(label=u'Cidade', choices=cidades)
     
-    paises = Pais.objects.all()
+    paises = [(p.nome, p.nome) for p in Pais.objects.all()]
     pais = forms.ChoiceField(label=u'País', choices=paises)
 
-class VoluntarioForm(forms.Form, EnderecoForm):
+class VoluntarioForm(EnderecoForm):
     nome = forms.CharField(max_length=50, required=True)
     email = forms.EmailField(max_length=255, required=True)
     senha = forms.CharField(widget=forms.PasswordInput(render_value=False), required=True)
     
-    list_areas = Area.objects.all()
+    list_areas = [(a.nome, a.nome) for a in Area.objects.all()]
     areas = forms.MultipleChoiceField(label=u'Áreas', required=False,
-        widget=CheckboxSelectMultiple, choices=areas)
+        widget=CheckboxSelectMultiple, choices=list_areas)
     
     autorizacao_email = forms.BooleanField( required=False, \
                                             label="Aceito receber e-mails do voluntar.io.", \
@@ -85,14 +85,14 @@ class VoluntarioForm(forms.Form, EnderecoForm):
         
         return user
     
-class VoluntarioEdicaoForm(forms.Form, EnderecoForm):
+class VoluntarioEdicaoForm(EnderecoForm):
     nome = forms.CharField(max_length=50, required=True)
     email = forms.EmailField(max_length=255, required=True)
     senha = forms.CharField(widget=forms.PasswordInput(render_value=False), required=True)
     
-    list_areas = Area.objects.all()
+    list_areas = [(a.nome, a.nome) for a in Area.objects.all()]
     areas = forms.MultipleChoiceField(label=u'Áreas', required=False,
-        widget=CheckboxSelectMultiple, choices=areas)
+        widget=CheckboxSelectMultiple, choices=list_areas)
     
     gender_choices = [(u'', 'Selecione o sexo'), \
                       (u'F', 'Feminino'), \

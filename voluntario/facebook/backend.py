@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User, AnonymousUser
 from django.db import IntegrityError
 
-from facebook.models import FacebookProfile
+from voluntario.facebook.models import FacebookProfile
 
 class FacebookBackend:
     def authenticate(self, token=None, request=None):

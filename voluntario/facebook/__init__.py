@@ -2,7 +2,7 @@ import cgi, urllib, json
 
 from django.conf import settings
 
-from facebook.models import FacebookProfile
+from voluntario.facebook.models import FacebookProfile
 
 class FacebookComponent(object):
     

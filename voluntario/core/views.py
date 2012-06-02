@@ -13,10 +13,10 @@ from django import forms
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 
-from facebook import FacebookComponent
+from voluntario.facebook import FacebookComponent
 
-from core.models import *
-from core.forms import VoluntarioForm, VoluntarioEdicaoForm
+from voluntario.core.models import *
+from voluntario.core.forms import VoluntarioForm, VoluntarioEdicaoForm
 
 from time import time
 
@@ -81,7 +81,7 @@ def remember_password(request):
                 response = HttpResponse(response_json, 'application/javascript')
         except Exception, e:
             
-            logging.info("[core.views.remember_password:85] Erro no lembrar senha: %s" % e.message)
+            logging.info("[voluntario.core.views.remember_password:85] Erro no lembrar senha: %s" % e.message)
             
             response_dict = {'status': 'error', 'msg': 'Este e-mail ainda não foi cadastrado.'}
             response_json = simplejson.dumps(response_dict)
@@ -92,6 +92,7 @@ def remember_password(request):
     return response
 
 def user_register(request, type):
+    import ipdb;ipdb.set_trace()
     context = RequestContext(request)
 
     initial = {}
@@ -119,7 +120,10 @@ def user_register(request, type):
         else:
             user_form = BeneficiarioForm(initial)
     else:
-        user_form = VoluntarioForm(initial=initial)
+        if type == 'voluntario':
+            user_form = VoluntarioForm(initial=initial)
+        else:
+            user_form = BeneficiarioForm(initial=initial)
         
     user_form.fb_cadastro = fb_cadastro
         
@@ -138,7 +142,7 @@ def user_register(request, type):
                     login(request, user)
                     return redirect(reverse('dashboard'))
     
-    context.update({'form': user_form})
+    context.update({'form': user_form, 'type': type})
     
     return render_to_response('cadastro.html', context)
 
