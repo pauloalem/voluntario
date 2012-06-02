@@ -206,6 +206,9 @@ def dashboard(request, voluntario_id):
     voluntario = Voluntario.objects.get(id=voluntario_id)
     return render(request, "dashboard.html", {'voluntario':voluntario})
 
+def beneficiario_show(request):
+    pass
+
 def beneficiario(request):
     return render(request, "beneficiario.html", {})
 
