@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^voluntario/(?P<voluntario_id>\d+)/', views.dashboard),
     url(r'^$', views.index, "index"),
     url(r'^campanha/?$', views.campanha, name="campanha"),
-    url(r'^campanha/(?P<id_campanha>\d+)/?^$', views.campanha_show, name="campanha-show"),
+    url(r'^campanha/(?P<id_campanha>\d+)/?$', views.campanha_show, name="campanha-show"),
 )

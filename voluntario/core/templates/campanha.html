@@ -11,10 +11,10 @@
 </form>
 {% endblock %}
 {% block extrajs %}
-{{ block.super }}
-<script type="text/javascript">
-$(function(){
-    $("#data_inicio,#data_fim").datepicker();
-});
+    {{ block.super }}
+    <script type="text/javascript">
+    $(function(){
+        //$("#id_data_inicio, #id_data_fim").datepicker();
+    });
 </script>
 {% endblock %}
