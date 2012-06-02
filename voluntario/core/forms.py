@@ -44,6 +44,7 @@ class VoluntarioForm(EnderecoForm):
     
     def save(self, access_token=None, fb_profile=None):
         
+        import ipdb;ipdb.set_trace()
         # para gerar um código aleatório que será temporariamente o username dos usuários
         import md5
         m = md5.new()
@@ -78,7 +79,7 @@ class VoluntarioForm(EnderecoForm):
             user.save()
             
         perfil = Usuario()
-        perfil.usuario = user
+        perfil.user = user
         #perfil.areas = self.cleaned_data.get('areas', '')
         perfil.aceita_email = int( self.cleaned_data.get('autorizacao_email', 1) )
         perfil.save()
