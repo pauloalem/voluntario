@@ -27,10 +27,6 @@ class VoluntarioForm(EnderecoForm):
     email = forms.EmailField(max_length=255, required=True)
     senha = forms.CharField(widget=forms.PasswordInput(render_value=False), required=True)
     
-    #list_areas = [(a.nome, a.nome) for a in Area.objects.all()]
-    #areas = forms.MultipleChoiceField(label=u'Áreas', required=False,
-    #    widget=CheckboxSelectMultiple, choices=list_areas)
-    
     autorizacao_email = forms.BooleanField( required=False, \
                                             label="Aceito receber e-mails do voluntar.io.", \
                                             initial=True )
@@ -138,7 +134,12 @@ class VoluntarioEdicaoForm(EnderecoForm):
         except:
             return False
 
-class BeneficiarioForm(forms.ModelForm):
+class BancoForm(forms.Form):
+    nome = forms.CharField(max_length=225)
+    numero = forms.IntegerField()
+
+
+class BeneficiarioForm(EnderecoForm, BancoForm):
     pass
 
 
