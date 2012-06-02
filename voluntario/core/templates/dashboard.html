@@ -1,16 +1,33 @@
 {% extends "base_site.html" %}
 
 {% block content %}
-	<ul class="nav-tabs">
-		<li><a href="#campanhas" >Campanhas</a></li>
-		<li><a href="#beneficiarios" >Beneficiários</a></li>
-	</ul>
-	<div id="div-tab-content">
-		<div id="campanhas">
-			{% for participacao in voluntario.participacoes.all %}
-				{{  participacao.nome }}
-			{% endfor %}
-		</div>
-		<div id="beneficiarios"></div>
-	</div>
+	<div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li><a href="#">{{ voluntario.foto }}</a></li>
+              <li><a href="#">Editar Perfil</a></li>
+              <li><a href="#">Criar Campanha</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+       	  <ul class="nav-tabs">
+			<li><a href="#campanhas" >Campanhas</a></li>
+			<li><a href="#beneficiarios" >Beneficiários</a></li>
+		  </ul>
+          <div class="hero-unit">
+            <h1>Olá, {{ voluntario.nome }}!</h1>
+            <div id="div-tab-content">
+			  <div id="campanhas">
+				{% for participacao in voluntario.participacoes.all %}
+				  {{ participacao.descricao }}
+				{% endfor %}
+			  </div>
+		   	  <div id="beneficiarios"></div>
+		    </div>
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
 {% endblock %}
