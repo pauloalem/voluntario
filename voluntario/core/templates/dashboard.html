@@ -5,8 +5,7 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">{{ voluntario.foto }}</a></li>
+              <li class="nav-header">{{ voluntario.foto }}</li>
               <li><a href="#">Editar Perfil</a></li>
               <li><a href="#">Criar Campanha</a></li>
             </ul>
@@ -21,9 +20,11 @@
             <h1>Olá, {{ voluntario.nome }}!</h1>
             <div id="div-tab-content">
 			  <div id="campanhas">
+			  	<ul>
 				{% for participacao in voluntario.participacoes.all %}
-				  {{ participacao.descricao }}
+				  <li>{{ participacao.descricao }}</li>
 				{% endfor %}
+				</ul>
 			  </div>
 		   	  <div id="beneficiarios"></div>
 		    </div>
