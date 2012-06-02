@@ -62,7 +62,7 @@ class Campanha(EnderecoMixin):
     descricao = models.TextField()
     criador = models.ForeignKey(Usuario, related_name="campanhas")
     data_inicio = models.DateTimeField()
-    data_fim = models.DateTimeField()
+    data_fim = models.DateTimeField(null=True, blank=True)
     foto = models.ImageField(upload_to='campanha/', blank=True, null=True)
 
 
