@@ -36,17 +36,14 @@ class EnderecoMixin(models.Model):
         abstract = True
 
 
-class Categoria(models.Model):
-    nome = models.CharField(max_length=255)
-
-
 class Area(models.Model):
-    nome = models.CharField(max_length=255, unique=True)
+    nome = models.CharField(max_length=255)
 
 
 class Banco(models.Model):
     nome = models.CharField(max_length=255)
     numero = models.IntegerField()
+
 
 class Usuario(EnderecoMixin):
     nome = models.CharField(max_length=255)
@@ -65,14 +62,11 @@ class Campanha(EnderecoMixin):
     criador = models.ForeignKey(Usuario, related_name="campanhas")
     data_inicio = models.DateTimeField()
     data_fim = models.DateTimeField()
-    areas_interesse = models.ManyToManyField(Area)
-    categorias = models.ManyToManyField(Categoria)
     foto = models.ImageField(upload_to='campanha/', blank=True, null=True)
 
 
 class Voluntario(Usuario):
-    areas_interesse = models.ManyToManyField(Area)
-    categorias = models.ManyToManyField(Categoria)
+    areas = models.ManyToManyField(Area)
     participacoes = models.ManyToManyField(Campanha,
         help_text="Campanhas que o usuario participou")
 
@@ -82,5 +76,4 @@ class Beneficiario(Usuario):
     conta = models.CharField(max_length=255, null=True, blank=True, default=None)
     agencia = models.CharField(max_length=255, null=True, blank=True, default=None)
     site = models.URLField(null=True, blank=True, default=None)
-    area_atuacao = models.ManyToManyField(Area)
-    categoria = models.ManyToManyField(Categoria)
+    areas = models.ManyToManyField(Area)
