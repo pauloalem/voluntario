@@ -25,11 +25,13 @@
   </div>
   <div class="campanhas">
       <h1>Campanhas</h1>
+      {% for campanha in campanhas %}
       <div class="campanha">
-          <span>T&iacute;tulo campanha</span>
+          <span>{{ campanha.nome }}</span>
           <div class="img">
             <span>CAMPANHA IMAGE</span>
           </div>
       </div>
+      {% endfor %}
   </div>
 {% endblock %}

@@ -62,6 +62,7 @@ class Usuario(EnderecoMixin):
         return self.nome
 
 class Campanha(EnderecoMixin):
+    nome = models.CharField(max_length = 30, default = "Camapanha")
     descricao = models.TextField()
     criador = models.ForeignKey(Usuario, related_name="campanhas")
     data_inicio = models.DateTimeField()
