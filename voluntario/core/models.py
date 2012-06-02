@@ -47,17 +47,19 @@ class Banco(models.Model):
 
 
 class Usuario(EnderecoMixin):
+    user = models.ForeignKey(User, related_name="usuario", unique=True, default=None)
+
     areas = models.ManyToManyField(Area)
     nome = models.CharField(max_length=255)
     identificador = models.CharField(max_length=255, unique=True, null=True, blank=True, default=None)
     email = models.EmailField()
     telefone = models.CharField(max_length=255)
     foto = models.ImageField(upload_to='usuario/', blank=True, null=True)
+    aceita_email = models.IntegerField(default=1)
     areas = models.ManyToManyField(Area)
 
     def __unicode__(self):
         return self.nome
-
 
 class Campanha(EnderecoMixin):
     descricao = models.TextField()
@@ -66,19 +68,14 @@ class Campanha(EnderecoMixin):
     data_fim = models.DateTimeField(blank=True)
     foto = models.ImageField(upload_to='campanha/', blank=True, null=True)
 
-
 class Voluntario(Usuario):
     participacoes = models.ManyToManyField(Campanha,
         help_text="Campanhas que o usuario participou", null=True, blank=True)
+    sexo = models.CharField(max_length=1, blank=True, null=True)
+    nascimento = models.DateTimeField(blank=True, null=True)
 
 class Beneficiario(Usuario):
     banco = models.ForeignKey(Banco)
     conta = models.CharField(max_length=255, null=True, blank=True, default=None)
     agencia = models.CharField(max_length=255, null=True, blank=True, default=None)
     site = models.URLField(null=True, blank=True, default=None)
-
-class UsuarioPerfil(models.Model):
-    usuario = models.ForeignKey(User, related_name="usuario_perfil")
-    
-    aceita_email = models.IntegerField(default=1)
-    areas = models.ManyToManyField(Area)

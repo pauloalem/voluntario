@@ -7,7 +7,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.core.urlresolvers import reverse
 
-from facebook import FacebookComponent
+from voluntario.facebook import FacebookComponent
 
 def login(request):
     """ First step of process, redirects user to facebook, which redirects to authentication_callback. """
