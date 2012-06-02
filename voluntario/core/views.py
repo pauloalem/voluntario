@@ -130,7 +130,7 @@ def user_register(request, type):
         user_form.fields['nome'].widget.attrs['required'] = False
         user_form.fields['email'].widget.attrs['disabled'] = True
         user_form.fields['email'].widget.attrs['required'] = False
-        
+
     if request.method == "POST":
         if user_form.is_valid():
             user = user_form.save(access_token=access_token, fb_profile=fb_profile)
