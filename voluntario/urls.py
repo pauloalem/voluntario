@@ -4,7 +4,6 @@ from voluntario.core import views
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 admin.autodiscover()
-
 urlpatterns = patterns('',
     #url(r'^$', 'core.views.home', name='home'),
     
@@ -24,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^usuario/(?P<username>[a-zA-Z0-9\-\_\.]+)/?$', 'voluntario.core.views.perfil', name="user_profile"),
     
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.index, "index"),
+    url(r'^$', views.index),
     
     url(r'^voluntario/(?P<voluntario_id>\d+)/', 'voluntario.core.views.dashboard', name='dashboard'),
     
