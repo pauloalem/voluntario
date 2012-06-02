@@ -46,6 +46,7 @@ class Banco(models.Model):
 
 
 class Usuario(EnderecoMixin):
+    areas = models.ManyToManyField(Area)
     nome = models.CharField(max_length=255)
     nascimento = models.DateField(null=True, blank=True, default=None)
     identificador = models.CharField(max_length=255, unique=True, null=True, blank=True, default=None)
@@ -66,9 +67,8 @@ class Campanha(EnderecoMixin):
 
 
 class Voluntario(Usuario):
-    areas = models.ManyToManyField(Area)
     participacoes = models.ManyToManyField(Campanha,
-        help_text="Campanhas que o usuario participou")
+        help_text="Campanhas que o usuario participou", null=True, blank=True)
 
 
 class Beneficiario(Usuario):
@@ -76,4 +76,3 @@ class Beneficiario(Usuario):
     conta = models.CharField(max_length=255, null=True, blank=True, default=None)
     agencia = models.CharField(max_length=255, null=True, blank=True, default=None)
     site = models.URLField(null=True, blank=True, default=None)
-    areas = models.ManyToManyField(Area)

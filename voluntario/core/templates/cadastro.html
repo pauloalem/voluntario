@@ -1,0 +1,35 @@
+{% extends "base_site.html" %}
+
+{% block js %}
+{{ block.super }}
+<script defer="defer" type="text/javascript" src="/static/js/cadastro.js"></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<div class="container cadastro">
+		<div class="twelve columns">
+			<div class="five columns alpha">
+				<h4>Se cadastra aê...</h4>
+				<form action="/user/register/{% block type %}{% endblock %}/" method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<p>
+						<input type="submit" class="green-button" value="Cadastrar" />
+					</p>
+				</form>
+			</div>
+			<div class="seven columns omega">
+				<div class="box-rounded-white">
+					<h4>Sobre o Prometo.me</h4>
+					<p>
+					O Prometo.me é um aplicativo online no qual você registra suas promessas de ano novo e define lembretes motivacionais regulares para que não deixe de cumpri-las. Tudo integrado com redes sociais  e conteúdos relacionados para ajudar o usuário a cumprir suas metas. <br /><br /><strong>Sabemos que alcançar objetivos não é fácil, <br />mas não precisa ser chato!</strong>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

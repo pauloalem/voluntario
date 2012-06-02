@@ -16,8 +16,8 @@ urlpatterns = patterns('',
     url(r'^facebook/setup/?$', 'core.views.facebook_setup', name="facebook_setup"),
     
     #user
-    url(r'^user/register/?$', 'core.views.user_register', name="user_register"),
-    url(r'^user/edit/?$', 'core.views.user_edit', name="user_edit"),
+    url(r'^user/register/(?P<type>[a-zA-Z]+)/?$', 'core.views.user_register', name="user_register"),
+    url(r'^user/edit/(?P<type>[a-zA-Z]+)/?$', 'core.views.user_edit', name="user_edit"),
     url(r'^user/login/?$', 'core.views.user_login', name="user_login"),
     url(r'^user/remember_password/?$', 'core.views.remember_password', name="remember_password"),
     url(r'^user/logout/?$', 'django.contrib.auth.views.logout', name="user_logout"),
