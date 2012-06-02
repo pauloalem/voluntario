@@ -59,12 +59,14 @@ USE_TZ = True
 MEDIA_ROOT = LOCAL_FILE('media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = LOCAL_FILE('static')
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
+
+STATIC_PATH = join(abspath(dirname(__file__)),"static")
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    STATIC_PATH,
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -110,7 +112,6 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     CORE_TEMPLATES,
 )
-print join(CUR_DIR, 'core', 'templates')
 
 INSTALLED_APPS = (
     'django.contrib.auth',

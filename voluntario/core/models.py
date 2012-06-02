@@ -52,6 +52,7 @@ class Usuario(EnderecoMixin):
     email = models.EmailField()
     telefone = models.CharField(max_length=255)
     foto = models.ImageField(upload_to='usuario/', blank=True, null=True)
+    areas = models.ManyToManyField(Area)
 
     def __unicode__(self):
         return self.nome
@@ -66,7 +67,6 @@ class Campanha(EnderecoMixin):
 
 
 class Voluntario(Usuario):
-    areas = models.ManyToManyField(Area)
     participacoes = models.ManyToManyField(Campanha,
         help_text="Campanhas que o usuario participou", null=True, blank=True)
 
@@ -76,4 +76,3 @@ class Beneficiario(Usuario):
     conta = models.CharField(max_length=255, null=True, blank=True, default=None)
     agencia = models.CharField(max_length=255, null=True, blank=True, default=None)
     site = models.URLField(null=True, blank=True, default=None)
-    areas = models.ManyToManyField(Area)
