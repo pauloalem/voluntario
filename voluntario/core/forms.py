@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from voluntario.core.models import UsuarioPerfil, Area, Estado, Cidade, Pais, Campanha
+from voluntario.core.models import Usuario, Area, Estado, Cidade, Pais, Campanha
 from voluntario.facebook.models import FacebookProfile
 
 from django.forms.fields import DateField, MultipleChoiceField
@@ -81,7 +81,7 @@ class VoluntarioForm(EnderecoForm):
             user.first_name = self.cleaned_data['nome']
             user.save()
             
-        perfil = UsuarioPerfil()
+        perfil = Usuario()
         perfil.usuario = user
         #perfil.areas = self.cleaned_data.get('areas', '')
         perfil.aceita_email = int( self.cleaned_data.get('autorizacao_email', 1) )
@@ -127,7 +127,7 @@ class VoluntarioEdicaoForm(EnderecoForm):
                 
             user.save()
             
-            user_profile = UsuarioPerfil.objects.get(usuario=user)
+            user_profile = Usuario.objects.get(usuario=user)
             user_profile.sexo = self.cleaned_data.get('sexo')
             user_profile.notificacao = self.cleaned_data.get('areas', 'mensal')
             user_profile.aceita_email = int( self.cleaned_data.get('autorizacao_email', 1) )

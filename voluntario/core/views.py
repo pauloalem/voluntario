@@ -131,7 +131,6 @@ def user_register(request, type):
         user_form.fields['email'].widget.attrs['disabled'] = True
         user_form.fields['email'].widget.attrs['required'] = False
         
-    import ipdb;ipdb.set_trace()
     if request.method == "POST":
         if user_form.is_valid():
             user = user_form.save(access_token=access_token, fb_profile=fb_profile)
@@ -162,8 +161,8 @@ def user_edit(request, type):
         try:
             user_perfil = request.user.user_perfil.get()
         except:
-            user_perfil = UsuarioPerfil()
-            user_perfil.usuario=request.user
+            user_perfil = Usuario()
+            user_perfil.user=request.user
             user_perfil.areas=[]
             user_perfil.aceita_email=1
             user_perfil.save()
