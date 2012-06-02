@@ -7,3 +7,6 @@ def index(request):
 def dashboard(request, voluntario_id):
     voluntario = Voluntario.objects.get(id=voluntario_id)
     return render(request, "dashboard.html", {'voluntario':voluntario})
+
+def cadastrar_beneficiario(request):
+    return render(request, "cadastrar_beneficiario.html", {})
