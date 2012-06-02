@@ -3,7 +3,9 @@ import md5
 
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, render_to_response, redirect, get_object_or_404
+from voluntario.core.forms import CampanhaForm
+from voluntario.core.models import Campanha, Voluntario
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt 
@@ -203,3 +205,16 @@ def index(request):
 def dashboard(request, voluntario_id):
     voluntario = Voluntario.objects.get(id=voluntario_id)
     return render(request, "dashboard.html", {'voluntario':voluntario})
+
+def campanha(request):
+    if request.method == "POST":
+        form = CampanhaForm(request.POST)
+        if form.is_valid():
+            return redirect('campanha-show', id_campanha=form.id)
+    else:
+        form = CampanhaForm()
+    return render(request, "campanha.html", {"form": form})
+
+def campanha_show(request, id_campanha):
+    campanha = get_object_or_404(Campanha, pk=id_campanha)
+    return render(request, "campanha_show.html", {"campanha": campanha})

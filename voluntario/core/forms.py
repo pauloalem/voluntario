@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from voluntario.core.models import UsuarioPerfil, Area, Estado, Cidade, Pais
+from voluntario.core.models import UsuarioPerfil, Area, Estado, Cidade, Pais, Campanha
 from voluntario.facebook.models import FacebookProfile
 
 from django.forms.fields import DateField, MultipleChoiceField
@@ -137,3 +137,8 @@ class VoluntarioEdicaoForm(EnderecoForm):
             return True
         except:
             return False
+
+class CampanhaForm(forms.ModelForm):
+
+    class Meta:
+        model = Campanha
