@@ -89,13 +89,13 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('core', ['Campanha'])
 
-        # Adding M2M table for field areas_interesse on 'Campanha'
-        db.create_table('core_campanha_areas_interesse', (
+        # Adding M2M table for field areas on 'Campanha'
+        db.create_table('core_campanha_areas', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('campanha', models.ForeignKey(orm['core.campanha'], null=False)),
             ('area', models.ForeignKey(orm['core.area'], null=False))
         ))
-        db.create_unique('core_campanha_areas_interesse', ['campanha_id', 'area_id'])
+        db.create_unique('core_campanha_areas', ['campanha_id', 'area_id'])
 
         # Adding M2M table for field categorias on 'Campanha'
         db.create_table('core_campanha_categorias', (
@@ -111,13 +111,13 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('core', ['Voluntario'])
 
-        # Adding M2M table for field areas_interesse on 'Voluntario'
-        db.create_table('core_voluntario_areas_interesse', (
+        # Adding M2M table for field areas on 'Voluntario'
+        db.create_table('core_voluntario_areas', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('voluntario', models.ForeignKey(orm['core.voluntario'], null=False)),
             ('area', models.ForeignKey(orm['core.area'], null=False))
         ))
-        db.create_unique('core_voluntario_areas_interesse', ['voluntario_id', 'area_id'])
+        db.create_unique('core_voluntario_areas', ['voluntario_id', 'area_id'])
 
         # Adding M2M table for field categorias on 'Voluntario'
         db.create_table('core_voluntario_categorias', (
@@ -187,8 +187,8 @@ class Migration(SchemaMigration):
         # Deleting model 'Campanha'
         db.delete_table('core_campanha')
 
-        # Removing M2M table for field areas_interesse on 'Campanha'
-        db.delete_table('core_campanha_areas_interesse')
+        # Removing M2M table for field areas on 'Campanha'
+        db.delete_table('core_campanha_areas')
 
         # Removing M2M table for field categorias on 'Campanha'
         db.delete_table('core_campanha_categorias')
@@ -196,8 +196,8 @@ class Migration(SchemaMigration):
         # Deleting model 'Voluntario'
         db.delete_table('core_voluntario')
 
-        # Removing M2M table for field areas_interesse on 'Voluntario'
-        db.delete_table('core_voluntario_areas_interesse')
+        # Removing M2M table for field areas on 'Voluntario'
+        db.delete_table('core_voluntario_areas')
 
         # Removing M2M table for field categorias on 'Voluntario'
         db.delete_table('core_voluntario_categorias')
@@ -239,7 +239,7 @@ class Migration(SchemaMigration):
         },
         'core.campanha': {
             'Meta': {'object_name': 'Campanha'},
-            'areas_interesse': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
+            'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
             'categorias': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Categoria']", 'symmetrical': 'False'}),
             'cidade': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Cidade']", 'null': 'True', 'blank': 'True'}),
             'complemento': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '255', 'null': 'True', 'blank': 'True'}),
@@ -295,7 +295,7 @@ class Migration(SchemaMigration):
         },
         'core.voluntario': {
             'Meta': {'object_name': 'Voluntario', '_ormbases': ['core.Usuario']},
-            'areas_interesse': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
+            'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
             'categorias': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Categoria']", 'symmetrical': 'False'}),
             'participacoes': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Campanha']", 'symmetrical': 'False'}),
             'usuario_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['core.Usuario']", 'unique': 'True', 'primary_key': 'True'})

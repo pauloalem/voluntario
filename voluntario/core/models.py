@@ -68,7 +68,7 @@ class Campanha(EnderecoMixin):
 class Voluntario(Usuario):
     areas = models.ManyToManyField(Area)
     participacoes = models.ManyToManyField(Campanha,
-        help_text="Campanhas que o usuario participou")
+        help_text="Campanhas que o usuario participou", null=True, blank=True)
 
 
 class Beneficiario(Usuario):
