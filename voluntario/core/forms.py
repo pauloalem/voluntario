@@ -1,4 +1,10 @@
-from django import forms
+from voluntario.core.models import Campanha
 
-class BeneficiarioForm(forms.Form):
+class BeneficiarioForm(forms.ModelForm):
     pass
+
+
+class CampanhaForm(forms.ModelForm):
+
+    class Meta:
+        model = Campanha
