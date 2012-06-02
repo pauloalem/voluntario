@@ -53,6 +53,7 @@ class Usuario(EnderecoMixin):
     email = models.EmailField()
     telefone = models.CharField(max_length=255)
     foto = models.ImageField(upload_to='usuario/', blank=True, null=True)
+    areas = models.ManyToManyField(Area)
 
     def __unicode__(self):
         return self.nome
