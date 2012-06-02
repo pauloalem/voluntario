@@ -41,22 +41,15 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-            {% block content %}
-            {% endblock %}
-        </div><!--/span-->
-      </div><!--/row-->
-
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
       <hr>
 
-      <footer>
-        <p>Voluntar.io</p>
-      </footer>
-
-    </div><!--/.fluid-container-->
+    <footer>
+      <p>Voluntar.io</p>
+    </footer>
+    </div><!--/span-->
 
     {% block extrajs %}
     <script src="{{ STATIC_URL }}/js/jquery.js"></script>
