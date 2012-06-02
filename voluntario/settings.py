@@ -114,7 +114,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'backends.EmailAuthBackend',
+    'voluntario.core.backends.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 

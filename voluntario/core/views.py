@@ -181,6 +181,9 @@ def user_edit(request, type):
     
     return render_to_response('edicao_perfil.html', context)
 
+def perfil(request, username):
+    pass
+
 def facebook_setup(request):
     context = RequestContext(request)
     

@@ -24,6 +24,6 @@ urlpatterns = patterns('',
     url(r'^usuario/(?P<username>[a-zA-Z0-9\-\_\.]+)/?$', 'voluntario.core.views.perfil', name="user_profile"),
     
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^voluntario/(?P<voluntario_id>\d+)/', views.dashboard),
+    url(r'^voluntario/(?P<voluntario_id>\d+)/', 'voluntario.core.views.dashboard', name='dashboard'),
     url(r'^$', views.index),
 )

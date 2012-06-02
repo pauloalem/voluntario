@@ -113,22 +113,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('core', ['Beneficiario'])
 
-        # Adding model 'UsuarioPerfil'
-        db.create_table('core_usuarioperfil', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('usuario', self.gf('django.db.models.fields.related.ForeignKey')(related_name='usuario_perfil', to=orm['auth.User'])),
-            ('aceita_email', self.gf('django.db.models.fields.IntegerField')(default=1)),
-        ))
-        db.send_create_signal('core', ['UsuarioPerfil'])
-
-        # Adding M2M table for field areas on 'UsuarioPerfil'
-        db.create_table('core_usuarioperfil_areas', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('usuarioperfil', models.ForeignKey(orm['core.usuarioperfil'], null=False)),
-            ('area', models.ForeignKey(orm['core.area'], null=False))
-        ))
-        db.create_unique('core_usuarioperfil_areas', ['usuarioperfil_id', 'area_id'])
-
 
     def backwards(self, orm):
         # Deleting model 'Pais'
@@ -163,12 +147,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Beneficiario'
         db.delete_table('core_beneficiario')
-
-        # Deleting model 'UsuarioPerfil'
-        db.delete_table('core_usuarioperfil')
-
-        # Removing M2M table for field areas on 'UsuarioPerfil'
-        db.delete_table('core_usuarioperfil_areas')
 
 
     models = {
@@ -275,13 +253,6 @@ class Migration(SchemaMigration):
             'numero': ('django.db.models.fields.IntegerField', [], {'default': 'None', 'null': 'True', 'blank': 'True'}),
             'pais': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['core.Pais']", 'null': 'True', 'blank': 'True'}),
             'telefone': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
-        'core.usuarioperfil': {
-            'Meta': {'object_name': 'UsuarioPerfil'},
-            'aceita_email': ('django.db.models.fields.IntegerField', [], {'default': '1'}),
-            'areas': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['core.Area']", 'symmetrical': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'usuario': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'usuario_perfil'", 'to': "orm['auth.User']"})
         },
         'core.voluntario': {
             'Meta': {'object_name': 'Voluntario', '_ormbases': ['core.Usuario']},
