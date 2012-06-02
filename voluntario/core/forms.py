@@ -27,13 +27,17 @@ class VoluntarioForm(EnderecoForm):
     email = forms.EmailField(max_length=255, required=True)
     senha = forms.CharField(widget=forms.PasswordInput(render_value=False), required=True)
     
-    list_areas = [(a.nome, a.nome) for a in Area.objects.all()]
-    areas = forms.MultipleChoiceField(label=u'Áreas', required=False,
-        widget=CheckboxSelectMultiple, choices=list_areas)
+    #list_areas = [(a.nome, a.nome) for a in Area.objects.all()]
+    #areas = forms.MultipleChoiceField(label=u'Áreas', required=False,
+    #    widget=CheckboxSelectMultiple, choices=list_areas)
     
     autorizacao_email = forms.BooleanField( required=False, \
                                             label="Aceito receber e-mails do voluntar.io.", \
                                             initial=True )
+
+    def __init__(self, *args, **kwargs):
+        super(VoluntarioForm, self).__init__(*args, **kwargs)
+        self.fields.keyOrder = ['nome', 'email', 'senha', 'endereco', 'numero', 'complemento', 'estado', 'cidade', 'pais', 'autorizacao_email']
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -79,7 +83,7 @@ class VoluntarioForm(EnderecoForm):
             
         perfil = UsuarioPerfil()
         perfil.usuario = user
-        perfil.areas = self.cleaned_data.get('areas', '')
+        #perfil.areas = self.cleaned_data.get('areas', '')
         perfil.aceita_email = int( self.cleaned_data.get('autorizacao_email', 1) )
         perfil.save()
         

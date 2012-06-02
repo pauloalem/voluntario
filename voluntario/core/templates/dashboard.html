@@ -1,0 +1,16 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+	<ul class="nav-tabs">
+		<li><a href="#campanhas" >Campanhas</a></li>
+		<li><a href="#beneficiarios" >Beneficiários</a></li>
+	</ul>
+	<div id="div-tab-content">
+		<div id="campanhas">
+			{% for participacao in voluntario.participacoes.all %}
+				{{  participacao.nome }}
+			{% endfor %}
+		</div>
+		<div id="beneficiarios"></div>
+	</div>
+{% endblock %}

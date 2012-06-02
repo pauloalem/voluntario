@@ -10,3 +10,4 @@ fhits/media/*
 fhits/cache/*
 .project
 .pydevproject
+.settings

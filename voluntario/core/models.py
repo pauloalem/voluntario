@@ -63,16 +63,13 @@ class Campanha(EnderecoMixin):
     descricao = models.TextField()
     criador = models.ForeignKey(Usuario, related_name="campanhas")
     data_inicio = models.DateTimeField()
-    data_fim = models.DateTimeField()
+    data_fim = models.DateTimeField(blank=True)
     foto = models.ImageField(upload_to='campanha/', blank=True, null=True)
 
 
 class Voluntario(Usuario):
     participacoes = models.ManyToManyField(Campanha,
         help_text="Campanhas que o usuario participou", null=True, blank=True)
-    sexo = models.CharField(max_length=1, blank=True, null=True)
-    nascimento = models.DateTimeField(blank=True, null=True)
-
 
 class Beneficiario(Usuario):
     banco = models.ForeignKey(Banco)

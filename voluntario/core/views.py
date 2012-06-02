@@ -22,9 +22,6 @@ from time import time
 
 import logging
 
-def index(request):
-    return render(request, "index.html", {})
-
 @csrf_exempt
 def user_login(request):
     if request.method == "POST" and request.is_ajax() and request.user.is_anonymous():
@@ -92,7 +89,6 @@ def remember_password(request):
     return response
 
 def user_register(request, type):
-    import ipdb;ipdb.set_trace()
     context = RequestContext(request)
 
     initial = {}
@@ -133,6 +129,7 @@ def user_register(request, type):
         user_form.fields['email'].widget.attrs['disabled'] = True
         user_form.fields['email'].widget.attrs['required'] = False
         
+    import ipdb;ipdb.set_trace()
     if request.method == "POST":
         if user_form.is_valid():
             user = user_form.save(access_token=access_token, fb_profile=fb_profile)
@@ -196,3 +193,10 @@ def facebook_setup(request):
     request.session['fb_access_token'] = access_token
     
     return HttpResponseRedirect(reverse('user_register'))
+
+def index(request):
+    return render(request, "index.html", {})
+
+def dashboard(request, voluntario_id):
+    voluntario = Voluntario.objects.get(id=voluntario_id)
+    return render(request, "dashboard.html", {'voluntario':voluntario})
