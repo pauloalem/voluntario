@@ -200,7 +200,8 @@ def facebook_setup(request):
     return HttpResponseRedirect(reverse('user_register'))
 
 def index(request):
-    return render(request, "index.html", {})
+    campanhas = Campanha.objects.filter()[:6]
+    return render(request, "index.html", { 'campanhas' : campanhas})
 
 def dashboard(request, voluntario_id):
     voluntario = Voluntario.objects.get(id=voluntario_id)
